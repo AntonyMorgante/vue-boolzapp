@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="empty-background">
+        <div class="upper-pos"></div>
+        <div class="bottom-pos"></div>
+    </div>
+    <div id="container" class="clearfix">
+        <div class="left sub-container">
+            <div class="user-bar clearfix"> 
+                <div class="left">
+                    <div class="flex v-align">
+                        <img src="img/user_avatar.png" alt=""> 
+                        <p class="username">Nome Utente</p>
+                    </div>
+                </div>
+                <div class="right">
+                    <i class="fas fa-circle-notch action-icon"></i>
+                    <i class="fas fa-comment-alt action-icon"></i>
+                    <i class="fas fa-ellipsis-v action-icon"></i>
+                </div>
+            </div> 
+            <div class="notify-section clearfix"> 
+                <i class="fas fa-bell-slash left ms-bell"></i>
+                <div class="left">
+                    <div class="notify-title">
+                        Ricevi notifiche di nuovi messaggi
+                    </div>
+                    <a href="#">Attiva notifiche desktop</a>
+                </div>
+            </div> 
+            <div class="search-bar">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Cerca o inizia una nuova chat">
+            </div>
+            <div class="contact-section"> 
+                <div v-for="(contact,counter) in contacts" class="contact clearfix" @click="setcurrent(counter)">
+                    <img :src="getimagelocation(counter)" class="contact-image left" alt="0">
+                    <div class="left">
+                        <div class="contact-name">
+                            {{contact.name}}
+                        </div>
+                        <div class="contact-last-message">
+                            {{getlastmessage(counter)}}
+                        </div>
+                    </div>
+                    <span class="message-date right">
+                        {{getlastdate(counter)}}
+                    </span>
+                </div>
+            </div> 
+        </div>
+        <div class="right sub-container">
+            <div class="user-bar clearfix">
+                <div class="left">
+                    <img :src="getimagelocation(current)" class="avatar" alt="">
+                    <div class="conversation-author">
+                        <div class="contact-name">
+                            {{contacts[current].name}}
+                        </div>
+                        <div class="contact-last-message">
+                            Ultimo accesso il {{getlastdate(current)}}
+                        </div>
+                    </div>
+                </div>
+                <div class="right">
+                    <i class="fas fa-search action-icon"></i>
+                    <i class="fas fa-paperclip action-icon"></i>
+                    <i class="fas fa-ellipsis-v action-icon"></i>
+                </div>
+            </div> 
+            <div class="conversation">
+                <div v-for="(message,counter) in contacts[current].messages" :class="checksend(counter)">
+                    <div class="message">
+                        {{message.text}}
+                        <span class="text-date">{{message.date}}</span>
+                    </div>
+                </div>
+            </div> 
+            <div class="typebar-section">   <!--Barra di scrittura ed invio messaggi-->
+                <i class="far fa-smile typebar-icon"></i>
+                <input type="text" placeholder="Scrivi un messaggio" class="typebar">
+                <i class="fas fa-microphone typebar-icon"></i>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    <script src="myscript.js"></script>
+</body>
+</html>
