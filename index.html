@@ -87,7 +87,7 @@
             </div> 
             <div class="typebar-section">   <!--Barra di scrittura ed invio messaggi-->
                 <i class="far fa-smile typebar-icon"></i>
-                <input type="text" placeholder="Scrivi un messaggio" class="typebar">
+                <input type="text" v-model="message" placeholder="Scrivi un messaggio" class="typebar"  @keyup.enter="sendmessage">
                 <i class="fas fa-microphone typebar-icon"></i>
             </div>
         </div>

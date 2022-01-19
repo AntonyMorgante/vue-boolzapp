@@ -2,6 +2,7 @@ let miapp = new Vue({
     el:`#container`,
     data: {
         current:0,
+        message:"",
         contacts: [
             {
                 name: 'Michele',
@@ -106,6 +107,39 @@ let miapp = new Vue({
         },
         checksend: function(index){
             return this.contacts[this.current].messages[index].status;
+        },
+        getdate: function(){
+            let date = new Date();
+            let day = date.toLocaleDateString(`en-GB`);
+            let hour = date.getHours();
+            let minutes = date.getMinutes();
+            let seconds = date.getSeconds();
+            let completedate = day + " " + hour + ":" + minutes + ":" + seconds
+            return completedate;
+        },
+        newreply: function(){
+            let day = this.getdate();
+            let reply={
+                date:day,
+                text:"Ok",
+                status: "received"
+            };
+            this.contacts[this.current].messages.push(reply);
+        },
+        sendreply:function(){
+            let timeout = setTimeout(this.newreply,1000);
+        },
+        sendmessage: function(){
+            let day=this.getdate();
+            let newmessage={
+                date: day,
+                text: this.message,
+                status: "sent"
+            };
+            this.contacts[this.current].messages.push(newmessage);
+            this.message="";
+            this.sendreply();
         }
+
     }
 })
