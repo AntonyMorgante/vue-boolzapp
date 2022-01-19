@@ -130,16 +130,17 @@ let miapp = new Vue({
             let timeout = setTimeout(this.newreply,1000);
         },
         sendmessage: function(){
-            let day=this.getdate();
-            let newmessage={
-                date: day,
-                text: this.message,
-                status: "sent"
-            };
-            this.contacts[this.current].messages.push(newmessage);
-            this.message="";
-            this.sendreply();
+            if (this.message!=""){
+                let day=this.getdate();
+                let newmessage={
+                    date: day,
+                    text: this.message,
+                    status: "sent"
+                };
+                this.contacts[this.current].messages.push(newmessage);
+                this.message="";
+                this.sendreply();
+            }
         }
-
     }
 })
