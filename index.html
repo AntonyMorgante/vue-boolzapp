@@ -59,9 +59,9 @@
             </div> 
         </div>
         <div class="right sub-container">
-            <div class="user-bar clearfix">
-                <div class="left">
-                    <div v-if="current != null">
+            <div v-if="current != null">  
+                <div class="user-bar clearfix">
+                    <div class="left">
                         <img :src="getimagelocation(current)" class="avatar" alt="">
                         <div class="conversation-author">
                             <div class="contact-name">
@@ -72,15 +72,13 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="right">
-                    <i class="fas fa-search action-icon"></i>
-                    <i class="fas fa-paperclip action-icon"></i>
-                    <i class="fas fa-ellipsis-v action-icon"></i>
-                </div>
-            </div> 
-            <div class="conversation scroll">
-                <div v-if="current != null">
+                    <div class="right">
+                        <i class="fas fa-search action-icon"></i>
+                        <i class="fas fa-paperclip action-icon"></i>
+                        <i class="fas fa-ellipsis-v action-icon"></i>
+                    </div>
+                </div> 
+                <div class="conversation scroll">
                     <div v-for="(message,counter) in contacts[current].messages" :class="checksend(counter)">
                         <div class="message" @click.stop="selectmessage(counter)">
                             {{message.text}}
@@ -95,12 +93,16 @@
                             </div>
                         </div>
                     </div>
+                </div> 
+                <div class="typebar-section">   <!--Barra di scrittura ed invio messaggi-->
+                    <i class="far fa-smile typebar-icon"></i>
+                    <input type="text" v-model="message" placeholder="Scrivi un messaggio" class="typebar"  @keyup.enter="sendmessage">
+                    <i v-if="message !=``" class="fas fa-paper-plane typebar-icon ms-send" @click="sendmessage"></i>
+                    <i v-else class="fas fa-microphone typebar-icon"></i>
                 </div>
-            </div> 
-            <div class="typebar-section">   <!--Barra di scrittura ed invio messaggi-->
-                <i class="far fa-smile typebar-icon"></i>
-                <input type="text" v-model="message" placeholder="Scrivi un messaggio" class="typebar"  @keyup.enter="sendmessage">
-                <i class="fas fa-microphone typebar-icon"></i>
+            </div>
+            <div v-else class="noconversation">
+
             </div>
         </div>
     </div>

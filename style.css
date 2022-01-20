@@ -43,10 +43,11 @@ img{
     max-width: 1170px;
     margin: auto;
     z-index: 2;
-    background-color: white;
+    background-color: rgb(220,220,220);
     min-height: 80vh;
     position:relative;
     top:75px;
+    box-shadow: 1px 1px 10px 1px rgb(160,160,160);
 }
 
 .clearfix::after{
@@ -74,7 +75,7 @@ img{
 }
 
 .user-bar{
-    background-color: rgb(232,231,231);
+    background-color: rgb(245,245,245);
     padding: 10px 15px;
     height: 54px;
 }
@@ -153,6 +154,7 @@ img{
 
 .contact-section{
     min-height: calc(80vh - 167px);
+    background-color: white;
 }
 
 .contact{
@@ -198,8 +200,15 @@ img{
 }
 
 .conversation{
-    background-color: rgb(220,220,220);
+    background-image:url("img/conversationbackground.jpg");
+    background-repeat: repeat;
+    background-size: contain;
     height: calc(80vh - 115px);
+}
+
+.noconversation{
+    background-color:lightblue;
+    height: calc(80vh + 24px);
 }
 
 .received{
@@ -253,7 +262,7 @@ img{
 }
 
 .typebar-section{
-    background-color: rgb(242,232,232);
+    background-color: rgb(245,245,245);
     padding:15px 25px;
 }
 
@@ -267,4 +276,8 @@ img{
     margin: auto 20px;
     padding: 10px;
     border:none;
+}
+
+.ms-send{
+    font-size: 18px;
 }

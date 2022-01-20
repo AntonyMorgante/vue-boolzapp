@@ -148,8 +148,8 @@ let miapp = new Vue({
             }
         },
         searched: function(index){
-            let user = this.contacts[index].name.toLowerCase();
-            if (user.includes(this.search)){
+            let namesearched = this.contacts[index].name.toLowerCase();
+            if (namesearched.includes(this.search)){
                 return true;
             }
             else if (this.contacts[index].name.includes(this.search)){
