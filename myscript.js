@@ -1,8 +1,10 @@
 let miapp = new Vue({
     el:`#container`,
     data: {
-        current:0,
+        current:null,
         message:"",
+        search: "",
+        selectedmessage: null,
         contacts: [
             {
                 name: 'Michele',
@@ -111,9 +113,12 @@ let miapp = new Vue({
         getdate: function(){
             let date = new Date();
             let day = date.toLocaleDateString(`en-GB`);
-            let hour = date.getHours();
-            let minutes = date.getMinutes();
-            let seconds = date.getSeconds();
+            let hour = String(date.getHours());
+            let minutes = String(date.getMinutes());
+            let seconds = String(date.getSeconds());
+            hour=hour.padStart(2,"0");
+            minutes=minutes.padStart(2,"0");
+            seconds = seconds.padStart(2,"0");
             let completedate = day + " " + hour + ":" + minutes + ":" + seconds
             return completedate;
         },
@@ -141,6 +146,26 @@ let miapp = new Vue({
                 this.message="";
                 this.sendreply();
             }
+        },
+        searched: function(index){
+            let user = this.contacts[index].name.toLowerCase();
+            if (user.includes(this.search)){
+                return true;
+            }
+            else if (this.contacts[index].name.includes(this.search)){
+                return true;
+            }
+            return false;
+        },
+        noselectmessage: function(){
+            this.selectedmessage = null;
+        },
+        selectmessage: function(index){
+            this.selectedmessage = index;
+        },
+        deletemessage: function(index){
+            this.contacts[this.current].messages.splice(index,1);
+            this.noselectmessage();
         }
     }
 })

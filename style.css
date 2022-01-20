@@ -10,6 +10,14 @@ img{
     cursor: pointer;
 }
 
+.hidden{
+    display: none;
+}
+
+.scroll{
+    overflow-y: auto;
+}
+
 .empty-background{
     position:relative;
     z-index: 1;
@@ -68,6 +76,7 @@ img{
 .user-bar{
     background-color: rgb(232,231,231);
     padding: 10px 15px;
+    height: 54px;
 }
 
 .flex{
@@ -152,6 +161,10 @@ img{
     cursor: pointer;
 }
 
+.contact:hover{
+    background-color: rgb(232,232,232);
+}
+
 .contact-image{
     padding:5px 20px;
     width: 50px;
@@ -186,7 +199,7 @@ img{
 
 .conversation{
     background-color: rgb(220,220,220);
-    min-height: calc(80vh - 119px);
+    height: calc(80vh - 115px);
 }
 
 .received{
@@ -208,11 +221,27 @@ img{
 .message{
     display: inline-block;
     min-width: 200px;
+    max-width: 400px;
     position: relative;
     padding: 15px;
     border-radius: 10px;
     margin: 20px 50px;
     font-size: 13px;
+    word-break: break-word;
+}
+
+.message-edit{
+    position:absolute;
+    background-color: white;
+    border-radius: 5px;
+    text-align: left;
+    z-index:10;
+}
+
+.message-info,
+.delete-message{
+    padding: 10px 15px;
+    cursor: pointer;
 }
 
 .text-date{

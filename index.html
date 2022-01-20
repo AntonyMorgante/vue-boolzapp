@@ -13,7 +13,7 @@
         <div class="upper-pos"></div>
         <div class="bottom-pos"></div>
     </div>
-    <div id="container" class="clearfix">
+    <div id="container" class="clearfix" @click="noselectmessage">
         <div class="left sub-container">
             <div class="user-bar clearfix"> 
                 <div class="left">
@@ -39,10 +39,10 @@
             </div> 
             <div class="search-bar">
                 <i class="fas fa-search"></i>
-                <input type="text" placeholder="Cerca o inizia una nuova chat">
+                <input type="text" v-model="search" placeholder="Cerca o inizia una nuova chat">
             </div>
             <div class="contact-section"> 
-                <div v-for="(contact,counter) in contacts" class="contact clearfix" @click="setcurrent(counter)">
+                <div v-for="(contact,counter) in contacts" v-if="searched(counter)" class="contact clearfix" @click="setcurrent(counter)">
                     <img :src="getimagelocation(counter)" class="contact-image left" alt="0">
                     <div class="left">
                         <div class="contact-name">
@@ -61,13 +61,15 @@
         <div class="right sub-container">
             <div class="user-bar clearfix">
                 <div class="left">
-                    <img :src="getimagelocation(current)" class="avatar" alt="">
-                    <div class="conversation-author">
-                        <div class="contact-name">
-                            {{contacts[current].name}}
-                        </div>
-                        <div class="contact-last-message">
-                            Ultimo accesso il {{getlastdate(current)}}
+                    <div v-if="current != null">
+                        <img :src="getimagelocation(current)" class="avatar" alt="">
+                        <div class="conversation-author">
+                            <div class="contact-name">
+                                {{contacts[current].name}}
+                            </div>
+                            <div class="contact-last-message">
+                                Ultimo accesso il {{getlastdate(current)}}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -77,11 +79,21 @@
                     <i class="fas fa-ellipsis-v action-icon"></i>
                 </div>
             </div> 
-            <div class="conversation">
-                <div v-for="(message,counter) in contacts[current].messages" :class="checksend(counter)">
-                    <div class="message">
-                        {{message.text}}
-                        <span class="text-date">{{message.date}}</span>
+            <div class="conversation scroll">
+                <div v-if="current != null">
+                    <div v-for="(message,counter) in contacts[current].messages" :class="checksend(counter)">
+                        <div class="message" @click.stop="selectmessage(counter)">
+                            {{message.text}}
+                            <span class="text-date">{{message.date}}</span>
+                            <div class="message-edit" v-if="selectedmessage == counter">
+                                <div class="message-info">
+                                    Message info
+                                </div>
+                                <div class="delete-message" @click.stop="deletemessage(counter)">
+                                    Delete message
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div> 
