@@ -48,11 +48,11 @@
                         <div class="contact-name">
                             {{contact.name}}
                         </div>
-                        <div class="contact-last-message">
+                        <div class="contact-last-message"  v-if="messagenumber(counter)">
                             {{getlastmessage(counter)}}
                         </div>
                     </div>
-                    <span class="message-date right">
+                    <span class="message-date right"  v-if="messagenumber(counter)">
                         {{getlastdate(counter)}}
                     </span>
                 </div>
@@ -62,13 +62,15 @@
             <div v-if="current != null">  
                 <div class="user-bar clearfix">
                     <div class="left">
-                        <img :src="getimagelocation(current)" class="avatar" alt="">
-                        <div class="conversation-author">
-                            <div class="contact-name">
-                                {{contacts[current].name}}
-                            </div>
-                            <div class="contact-last-message">
-                                Ultimo accesso il {{getlastdate(current)}}
+                        <div class="flex v-align">
+                            <img :src="getimagelocation(current)" class="avatar" alt="">
+                            <div class="conversation-author">
+                                <div class="contact-name">
+                                    {{contacts[current].name}}
+                                </div>
+                                <div class="contact-last-message" v-if="messagenumber(current)">
+                                    Ultimo accesso il {{getlastdate(current)}}
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -128,7 +130,19 @@
                 </div>
             </div>
             <div v-else class="noconversation">
-
+                <div class="noconv-box">
+                    <img src="img/w-web.png" alt="">
+                    <div class="noconv-title"> 
+                        Mantieni il telefono connesso
+                    </div>
+                    <div class="noconv-text">
+                        WhatsApp si collega al tuo telefono per sincronizzare i messaggi. Per ridurre l'utilizzo dei dati, collega il telefono al Wi-Fi.
+                    </div>
+                    <hr>
+                    <div class="noconv-text">
+                        Chiama da desktop con WhatsApp per Windows. <a href="#">Scaricala qui.</a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

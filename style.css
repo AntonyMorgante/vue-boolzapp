@@ -40,13 +40,13 @@ img{
 }
 
 #container{
-    max-width: 1170px;
+    max-width: 1370px;
     margin: auto;
     z-index: 2;
     background-color: rgb(220,220,220);
-    min-height: 80vh;
+    min-height: 90vh;
     position:relative;
-    top:75px;
+    top:50px;
     box-shadow: 1px 1px 10px 1px rgb(160,160,160);
 }
 
@@ -153,7 +153,7 @@ img{
 }
 
 .contact-section{
-    min-height: calc(80vh - 167px);
+    min-height: calc(90vh - 167px);
     background-color: white;
 }
 
@@ -195,20 +195,11 @@ img{
     right: 10px;
 }
 
-.conversation-author{
-    display: inline-block;
-}
-
 .conversation{
     background-image:url("img/conversationbackground.jpg");
     background-repeat: repeat;
     background-size: contain;
-    height: calc(80vh - 115px);
-}
-
-.noconversation{
-    background-color:lightblue;
-    height: calc(80vh + 24px);
+    height: calc(90vh - 115px);
 }
 
 .received{
@@ -321,3 +312,36 @@ img{
     word-break: break-all;
 }
 
+.noconversation{
+    background-color:rgb(248,249,250);
+    height: calc(90vh + 24px);
+    position: relative;
+}
+
+.noconv-box{
+    position: absolute;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+    text-align: center;
+    width: 500px;
+}
+
+.noconv-box img{
+    width: 75%;
+}
+
+.noconv-title{
+    font-size: 30px;
+    padding: 20px 0;
+}
+
+.noconv-text{
+    font-size: 14px;
+    padding: 20px 0;
+}
+
+.noconv-text a{
+    color:rgb(85, 197, 85);
+    text-decoration: none;
+}
