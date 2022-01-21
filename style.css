@@ -213,10 +213,12 @@ img{
 
 .received{
     text-align: left;
+    margin: 20px 40px;
 }
 
 .sent{
     text-align: right;
+    margin: 20px 40px;
 }
 
 .received .message{
@@ -234,13 +236,35 @@ img{
     position: relative;
     padding: 15px;
     border-radius: 10px;
-    margin: 20px 50px;
     font-size: 13px;
     word-break: break-word;
+    text-align: left;
+}
+
+.ms-chevron{
+    display: none;
+    padding-left:5px;
+}
+
+.sent .ms-chevron{
+    background-color: rgb(208,250,182);
+}
+
+.received .ms-chevron{
+    background-color: white;
+}
+
+.message:hover .ms-chevron{
+    display: inline-block;
+    position:absolute;
+    top: 15px;
+    right: 10px;
 }
 
 .message-edit{
     position:absolute;
+    top: 25px;
+    right:10px;
     background-color: white;
     border-radius: 5px;
     text-align: left;
@@ -281,3 +305,19 @@ img{
 .ms-send{
     font-size: 18px;
 }
+
+.emoji-section{
+    position: relative;
+    display: inline-block;
+}
+
+.emoji-box{
+    position: absolute;
+    top:-220px;
+    background-color: white;
+    width: 200px;
+    height: 200px;
+    overflow-y:auto;
+    word-break: break-all;
+}
+

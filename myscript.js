@@ -4,6 +4,7 @@ let miapp = new Vue({
         current:null,
         message:"",
         search: "",
+        searchemoji: "",
         selectedmessage: null,
         contacts: [
             {
@@ -90,8 +91,21 @@ let miapp = new Vue({
                     }
                 ],
             },
+        ],
+        possibleanswers:[
+            "non lo so",
+            "ma che dici?",
+            "va bene",
+            "ok",
+            "interessante...",
+            "non penso di aver capito!",
+            "Partita dopo?"
         ]
     },
+    updated: function(){
+        let box = document.querySelector(".scroll");
+        box.scrollTop = box.scrollHeight;
+      },
     methods:{
         getimagelocation:function(index){
             return "img/img"+this.contacts[index].avatar+".png"
@@ -122,29 +136,34 @@ let miapp = new Vue({
             let completedate = day + " " + hour + ":" + minutes + ":" + seconds
             return completedate;
         },
-        newreply: function(){
+        getreplytext: function(){
+            let sup = this.possibleanswers.length;
+            let n = Math.floor(Math.random()*sup)
+            return this.possibleanswers[n];
+        },
+        newreply: function(index){
             let day = this.getdate();
+            let answer = this.getreplytext();
             let reply={
                 date:day,
-                text:"Ok",
+                text:answer,
                 status: "received"
             };
-            this.contacts[this.current].messages.push(reply);
-        },
-        sendreply:function(){
-            let timeout = setTimeout(this.newreply,1000);
+            this.contacts[index].messages.push(reply);
         },
         sendmessage: function(){
-            if (this.message!=""){
+            let target = this.current;
+            let trimmedmessage = this.message.trim();
+            if (trimmedmessage!=""){
                 let day=this.getdate();
                 let newmessage={
                     date: day,
                     text: this.message,
                     status: "sent"
                 };
-                this.contacts[this.current].messages.push(newmessage);
+                this.contacts[target].messages.push(newmessage);
+                setTimeout(this.newreply,1000,target);
                 this.message="";
-                this.sendreply();
             }
         },
         searched: function(index){
@@ -166,6 +185,15 @@ let miapp = new Vue({
         deletemessage: function(index){
             this.contacts[this.current].messages.splice(index,1);
             this.noselectmessage();
-        }
+        },
+        messagecount: function(index){
+            return this.contacts[this.current].messages.length;
+        },
+        insert: function(emoji) {
+            this.message += emoji;
+          },
     }
 })
+
+Vue.use(EmojiPicker);
+

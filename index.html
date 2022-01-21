@@ -42,7 +42,7 @@
                 <input type="text" v-model="search" placeholder="Cerca o inizia una nuova chat">
             </div>
             <div class="contact-section"> 
-                <div v-for="(contact,counter) in contacts" v-if="searched(counter)" class="contact clearfix" @click="setcurrent(counter)">
+                <div v-for="(contact,counter) in contacts" v-show="searched(counter)" class="contact clearfix" @click="setcurrent(counter)">
                     <img :src="getimagelocation(counter)" class="contact-image left" alt="0">
                     <div class="left">
                         <div class="contact-name">
@@ -79,25 +79,51 @@
                     </div>
                 </div> 
                 <div class="conversation scroll">
-                    <div v-for="(message,counter) in contacts[current].messages" :class="checksend(counter)">
-                        <div class="message" @click.stop="selectmessage(counter)">
-                            {{message.text}}
-                            <span class="text-date">{{message.date}}</span>
-                            <div class="message-edit" v-if="selectedmessage == counter">
-                                <div class="message-info">
-                                    Message info
-                                </div>
-                                <div class="delete-message" @click.stop="deletemessage(counter)">
-                                    Delete message
+                    <div v-if="contacts[current].messages != []">
+                        <div v-for="(message,counter) in contacts[current].messages" :class="checksend(counter)">
+                            <div class="message" @click.stop="selectmessage(counter)">
+                                {{message.text}}
+                                <span class="text-date">{{message.date}}</span>
+                                <i class="fas fa-chevron-down ms-chevron"></i>
+                                <div class="message-edit" v-if="selectedmessage == counter">
+                                    <div class="message-info">
+                                        Message info
+                                    </div>
+                                    <div class="delete-message" @click.stop="deletemessage(counter)">
+                                        Delete message
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div> 
                 <div class="typebar-section">   <!--Barra di scrittura ed invio messaggi-->
-                    <i class="far fa-smile typebar-icon"></i>
+                    <span class="emoji-section">
+                        <emoji-picker @emoji="insert" :search="searchemoji">
+                            <div slot="emoji-invoker" slot-scope="{ events: { click: clickEvent } }" @click.stop="clickEvent">
+                                <i class="far fa-smile typebar-icon"></i>
+                            </div>
+                            <div slot="emoji-picker" slot-scope="{ emojis, insert, display }" class="emoji-box">
+                                <div>
+                                    <div>
+                                        <div v-for="(emojiGroup, category) in emojis" :key="category">
+                                        <h5>{{ category }}</h5>
+                                        <div>
+                                            <span
+                                            v-for="(emoji, emojiName) in emojiGroup"
+                                            :key="emojiName"
+                                            @click="insert(emoji)"
+                                            :title="emojiName"
+                                            >{{ emoji }}</span>
+                                    </div>
+                                </div>
+                                </div>
+                                </div>
+                            </div>
+                        </emoji-picker>
+                    </span>
                     <input type="text" v-model="message" placeholder="Scrivi un messaggio" class="typebar"  @keyup.enter="sendmessage">
-                    <i v-if="message !=``" class="fas fa-paper-plane typebar-icon ms-send" @click="sendmessage"></i>
+                    <i v-if="message.trim(` `) !=``" class="fas fa-paper-plane typebar-icon ms-send" @click="sendmessage"></i>
                     <i v-else class="fas fa-microphone typebar-icon"></i>
                 </div>
             </div>
@@ -107,6 +133,7 @@
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    <script src="https://unpkg.com/vue-emoji-picker/dist/vue-emoji-picker.js"></script>
     <script src="myscript.js"></script>
 </body>
 </html>
