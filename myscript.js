@@ -6,6 +6,7 @@ let miapp = new Vue({
         search: "",
         searchemoji: "",
         selectedmessage: null,
+        ellipsismenu: false,
         contacts: [
             {
                 name: 'Michele',
@@ -118,6 +119,17 @@ let miapp = new Vue({
             let lastmessage= this.contacts[index].messages.slice(-1);
             return lastmessage[0].date;
         },
+        getlastreceiveddate:function(index){
+            let i = 1;
+            while (i<this.contacts[index].messages.length){
+                let lastmessage= this.contacts[index].messages.slice(-i);
+                if (lastmessage[0].status == "received"){
+                    return lastmessage[0].date;
+                }
+                i++;
+            }
+            return "";
+        },
         setcurrent:function(index){
             this.current=index;
         },
@@ -176,8 +188,9 @@ let miapp = new Vue({
             }
             return false;
         },
-        noselectmessage: function(){
+        deselect: function(){
             this.selectedmessage = null;
+            this.ellipsismenu = false;
         },
         selectmessage: function(index){
             this.selectedmessage = index;
@@ -194,14 +207,25 @@ let miapp = new Vue({
         },
         messagenumber: function(index){
             return this.contacts[index].messages.length;
-        }
+        },
+        removecontact: function(index){
+            this.contacts.splice(index,1);
+            this.current = null;
+        },
+        removeconversation: function(index){
+            this.contacts[index].messages=[];
+        },
+        ellipsismenuvalue: function(){
+            if (this.ellipsismenu){
+                this.ellipsismenu = false;
+            } else {
+                this.ellipsismenu = true;
+            }
+        },
     }
 })
 
 Vue.use(EmojiPicker);
-
-//rivedere le date
-//controllo per nessun messaggio
 
 /*
 
@@ -211,6 +235,8 @@ nel timeout in cui il pc risponde, poi mantenere la scritta
 “online” per un paio di secondi e infine visualizzare “ultimo accesso alle xx:yy” 
 con l’orario corretto
 
+- aggiungere una splash page visibile per 1s all’apertura dell’app
+
 - dare la possibilità all’utente di cancellare tutti i messaggi di un contatto 
 o di cancellare l’intera chat con tutti i suoi dati: cliccando sull’icona 
 con i tre pallini in alto a destra, si apre un dropdown menu in cui sono 
@@ -219,8 +245,6 @@ si cancellano rispettivamente tutti i messaggi di quel contatto
 (quindi rimane la conversazione vuota) oppure l’intera chat comprensiva 
 di tutti i dati del contatto oltre che tutti i suoi messaggi 
 (quindi sparisce il contatto anche dalla lista di sinistra)
-
-- aggiungere una splash page visibile per 1s all’apertura dell’app
 
 - A) rendere l’app responsive e fruibile anche su mobile: di default si 
 visualizza solo la lista dei contatti e cliccando su un contatto si vedono i 

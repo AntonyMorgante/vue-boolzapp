@@ -345,3 +345,20 @@ img{
     color:rgb(85, 197, 85);
     text-decoration: none;
 }
+
+.remove-options{
+    position: relative;
+}
+
+.ellipsis-menu{
+    position: absolute;
+    width: 400px;
+    background-color: white;
+    z-index:10;
+    left: -390px;
+    border-radius:5px;
+}
+
+.ellipsis-menu-options{
+    padding:10px;
+}
